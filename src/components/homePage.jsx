@@ -1,22 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Detalle } from './detalle';
+import { Lista } from './lista';
 
-export const HomePage = ({user}) => {
+export const HomePage = () => {
+  const [list, setList] = useState(true)
 
   return (
     <>
-  
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
         <Navbar.Brand href="#home">BuildsApp</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/homePage/lista">Lista</Nav.Link>
-            <Nav.Link href="#pricing">Detalle</Nav.Link>
+            <Nav.Link onClick={()=>setList(true)}>Lista</Nav.Link>
+            <Nav.Link onClick={()=>setList(false)}>Detalle</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href="/api/auth/logout">Salir</Nav.Link>
@@ -24,7 +25,9 @@ export const HomePage = ({user}) => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-    <div> Welcome {user.name}!</div>
+
+    {list ? <Lista /> : <Detalle />}
+    
     </>
     
   )
